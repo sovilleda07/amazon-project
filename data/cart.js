@@ -42,6 +42,22 @@ export function addToCart(productId) {
   }
 
   saveToStorage();
+
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+  
+  let addedMessageTimeoutId;
+
+  addedMessage.classList.add('added-to-cart-visible');
+
+  if (addedMessageTimeoutId) {
+    clearTimeout(addedMessageTimeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    addedMessage.classList.remove('added-to-cart-visible');
+  }, 2000);
+
+  addedMessageTimeoutId = timeoutId;
 }
 
 function saveToStorage() {
