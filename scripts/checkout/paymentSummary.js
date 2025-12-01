@@ -4,6 +4,7 @@ import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { formatCurrency } from '../utils/money.js';
 
 export function renderPaymentSummary() {
+  let cartQuantity = 0;
   let productPriceCents = 0;
   let shippingPriceCents = 0;
 
@@ -16,7 +17,12 @@ export function renderPaymentSummary() {
 
     shippingPriceCents += deliveryOption.priceCents;
 
+    cartQuantity += cartItem.quantity;
   });
+
+  document.querySelector('.js-return-to-home-link').innerHTML =
+    `${cartQuantity} ${cartQuantity <= 1 ? 'item' : 'items'}`;
+
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
 
   const taxCents = totalBeforeTaxCents * 0.1;
