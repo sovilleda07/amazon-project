@@ -2,6 +2,16 @@ export let cart;
 
 loadFromStorage();
 
+export function calculateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  return cartQuantity;
+}
+
 export function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem('cart'));
 
@@ -44,7 +54,7 @@ export function addToCart(productId) {
   saveToStorage();
 
   const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-  
+
   let addedMessageTimeoutId;
 
   addedMessage.classList.add('added-to-cart-visible');
